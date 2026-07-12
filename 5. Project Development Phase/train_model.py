@@ -9,19 +9,15 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.linear_model import LogisticRegression
 
-# Load dataset
 df = pd.read_csv("Crop_recommendation.csv")
 
-# Features and target
 X = df.drop("label", axis=1)
 y = df["label"]
 
-# Split dataset into training and testing data
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# Create models
 models = {
     "Random Forest": RandomForestClassifier(
         n_estimators=100, random_state=42
@@ -41,7 +37,6 @@ best_model = None
 best_accuracy = 0
 best_model_name = ""
 
-# Train and evaluate models
 for name, model in models.items():
     model.fit(X_train, y_train)
 
@@ -55,7 +50,6 @@ for name, model in models.items():
         best_model = model
         best_model_name = name
 
-# Save best model
 joblib.dump(best_model, "model.pkl")
 
 print("\nBest Model:", best_model_name)
