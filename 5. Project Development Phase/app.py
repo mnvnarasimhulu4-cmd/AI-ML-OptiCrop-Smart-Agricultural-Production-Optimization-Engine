@@ -21,7 +21,6 @@ def findyourcrop():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get values from form
         N = float(request.form['N'])
         P = float(request.form['P'])
         K = float(request.form['K'])
@@ -30,7 +29,6 @@ def predict():
         ph = float(request.form['ph'])
         rainfall = float(request.form['rainfall'])
 
-        # Store values to keep them in form
         values = {
             'N': N,
             'P': P,
@@ -41,7 +39,6 @@ def predict():
             'rainfall': rainfall
         }
 
-        # Reject all-zero inputs
         if (
             N == 0 or
             P == 0 or
@@ -57,7 +54,6 @@ def predict():
                 values=values
             )
 
-        # Validate realistic ranges
         if (
             N < 0 or N > 200 or
             P < 0 or P > 200 or
@@ -73,7 +69,6 @@ def predict():
                 values=values
             )
 
-        # Predict crop
         data = np.array([[N, P, K, temperature, humidity, ph, rainfall]])
         prediction = model.predict(data)
 
